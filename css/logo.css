@@ -1,0 +1,11 @@
+.main{
+    
+    width: 200px;
+    height: 200px;
+    position: absolute;
+}
+.main .p1 {
+    background-color: aqua;
+    width: 100%;height: 100%;
+    
+}
