@@ -7,7 +7,7 @@ var c = ""; var ar = []; var w;
 var d = ""; var z = [];
 // Defualt
 for (var i = localStorage.length - 1; i >= 0; i--) {
-    if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option') {
+    if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option'||localStorage.key(i) === 'background'||localStorage.key(i) === 'checkAnimation'||localStorage.key(i) === 'checkRandom') {
         continue;
     }
     d = document.createElement("div");
@@ -45,16 +45,16 @@ submit.addEventListener("click", (e) => {
 })
 
 
-data.addEventListener('click',()=>{
+data.addEventListener('click', () => {
 
 
     z.forEach((i, j) => {
         i.addEventListener("click", () => {
-    
-    
+
+
             console.log('cheack')
             localStorage.removeItem(i.parentElement.firstChild.textContent)
-    
+
             i.parentElement.style.display = 'none'
         })
     })
