@@ -3,6 +3,9 @@
     --sction:#213b6cbd;
     --onhover:#ffffff33;
 }
+*{
+    box-sizing: border-box;
+}
 body{
     margin: 0;padding: 0;
     background-color: var(--bodyColor);
@@ -17,7 +20,7 @@ body{
     
 }
 .main [type="text" i]{
-    height: 30px;
+    height: 36px;
     max-width: 300px;
     background: transparent;color: white;
     font-size: 20px;
