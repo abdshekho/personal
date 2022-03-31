@@ -70,7 +70,7 @@ body{
     border: 1px solid white;
 }
 .data div{
- 
+    position: relative;
     margin-bottom: 10px;
     padding: 10px 15px;
     min-height: 50px;
@@ -83,6 +83,7 @@ body{
     font-weight: 500;
     border: 1px solid white;
     background: var(--bodyColor);
+    transition: 0.5s;
     
 }
 
@@ -97,4 +98,12 @@ body{
 }
 .data div button:hover{
     background-color: #f48888;
+}
+
+.data div input[type="checkbox" i]{
+    position: absolute;
+    right: 88px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
 }

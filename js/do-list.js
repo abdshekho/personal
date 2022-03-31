@@ -1,20 +1,32 @@
 
 input = document.querySelector('.main .field .in');
 submit = document.querySelector('.main .field .add');
+checker = document.querySelectorAll(".data div input");
 
 data = document.querySelector(".data");
-var c = ""; var ar = []; var w;
-var d = ""; var z = [];
-// Defualt
-for (var i = localStorage.length - 1; i >= 0; i--) {
-    if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option'||localStorage.key(i) === 'background'||localStorage.key(i) === 'checkAnimation'||localStorage.key(i) === 'checkRandom') {
+//z: to button [delete] c: to creat button [delete] d:to creat 
+// var c = "";var d = ""; 
+var z = []; var w = [];
+
+//load from localStrorage
+for (var i = 0; i <= localStorage.length - 1; i++) {
+    if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option' || localStorage.key(i) === 'background' || localStorage.key(i) === 'checkAnimation' || localStorage.key(i) === 'checkRandom') {
         continue;
     }
     d = document.createElement("div");
     c = document.createElement("button");
+    q = document.createElement("input");
+    q.setAttribute("type", "checkbox");
+    if (localStorage.key(i)[localStorage.key(i).length - 1] == 'F') {
+        q.setAttribute("data-che", "F");
+    }
+    if (localStorage.key(i)[localStorage.key(i).length - 1] == 'T') {
+        q.setAttribute("data-che", "T");
+    }
     data.appendChild(d);
     c.innerHTML = 'delete';
     d.innerHTML = localStorage.getItem(localStorage.key(i));
+    d.appendChild(q);
     d.appendChild(c);
     z.push(c)
 }
@@ -23,39 +35,124 @@ for (var i = localStorage.length - 1; i >= 0; i--) {
 //Add
 submit.addEventListener("click", (e) => {
     e.preventDefault();
-
     if (input.value != '') {
         d = document.createElement("div");
         c = document.createElement("button");
-        c.innerHTML = 'delete'
+        q = document.createElement("input");
+        q.setAttribute("type", "checkbox");
+        q.setAttribute("data-che", "F");
+        c.innerHTML = 'delete';
         d.innerHTML = input.value;
         data.appendChild(d);
+        d.appendChild(q);
         d.appendChild(c);
         z.push(c);
-        localStorage.setItem(input.value, input.value)
+        //one edite
+        localStorage.setItem(input.value + 'F', input.value);
+        // localStorage.setItem(input.value, input.value);
         input.value = '';
-    } else {
 
+        checker = document.querySelectorAll(".data div input");
+    } else {
+        // is empty
         document.querySelector('.emp').style.opacity = 1;
         setTimeout(() => {
             document.querySelector('.emp').style.opacity = 0;
         }, 1300)
     }
-    //delete
 })
 
 
+//delete from localStorage and now
 data.addEventListener('click', () => {
 
 
     z.forEach((i, j) => {
         i.addEventListener("click", () => {
+            //delete from localStorage
+            //two edite
+            if (i.parentElement.childNodes[1].dataset.che == 'F') {
+                localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
+            }
 
-
-            console.log('cheack')
-            localStorage.removeItem(i.parentElement.firstChild.textContent)
-
-            i.parentElement.style.display = 'none'
+            if (i.parentElement.childNodes[1].dataset.che == 'T') {
+                localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
+            }
+            // checker = ""
+            //delete from page "RT"
+            i.parentElement.style.opacity = '0'
+            setTimeout(() => {
+                i.parentElement.style.display = 'none'
+                checker = document.querySelectorAll(".data div input");
+            }, 400)
         })
     })
 })
+
+
+//if finish task
+
+var checker = document.querySelectorAll(".data div input");
+
+document.querySelectorAll(".data")[0].addEventListener('change',()=>{
+    checker = document.querySelectorAll(".data div input");
+    checker.forEach(inp2 => {
+
+        if (inp2.dataset.che === 'T') { inp2.checked = true }
+        if (inp2.dataset.che === 'F') { inp2.checked = false }
+    
+        inp2.addEventListener('click', () => {
+            checker = document.querySelectorAll(".data div input");
+            console.log(inp2.dataset.che)
+    
+            if (inp2.checked === false) { inp2.dataset.che = 'F' }
+            if (inp2.checked === true) { inp2.dataset.che = 'T' }
+    
+            TransTF(inp2);
+    
+        })
+    })
+    
+})
+checker.forEach(inp2 => {
+
+    if (inp2.dataset.che === 'T') { inp2.checked = true }
+    if (inp2.dataset.che === 'F') { inp2.checked = false }
+
+    inp2.addEventListener('click', () => {
+        checker = document.querySelectorAll(".data div input");
+        console.log(inp2.dataset.che)
+
+        if (inp2.checked === false) { inp2.dataset.che = 'F' }
+        if (inp2.checked === true) { inp2.dataset.che = 'T' }
+
+        TransTF(inp2);
+
+    })
+})
+
+
+function TransTF(inputcheck) {
+
+    var q = inputcheck.parentElement.childNodes[0].textContent;     // value without F or T 
+    // var w = inputcheck.parentElement.childNodes[1].dataset.che;     //T or F
+    var w;
+    if(inputcheck.parentElement.childNodes[1].dataset.che === "F"){
+        w = "T"
+    }
+    if(inputcheck.parentElement.childNodes[1].dataset.che === "T"){
+        w = 'F'
+    }
+    var qw = q + w; //value with F or T
+
+    if (w === 'T') {
+        localStorage.removeItem(qw)
+        localStorage.setItem(q + "F", q)
+    }
+
+    if (w === 'F') {
+        localStorage.removeItem(qw)
+        localStorage.setItem(q + "T", q)
+    }
+
+}
