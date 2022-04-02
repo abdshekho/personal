@@ -1,8 +1,5 @@
-/*================================================
 
-Polyfill
 
-================================================*/
 var lastScore = document.querySelectorAll('.lastScore')[0];
 var maxScore = document.querySelectorAll('.maxScore')[0];
 lastScore.innerHTML ="last Score: " +localStorage.getItem("scoreOld");
@@ -10,11 +7,7 @@ maxScore.innerHTML = "max Score:  " + localStorage.getItem("maxScore");
 
 (function(){ 'use strict';
 
-  /*================================================
 
-  Request Animation Frame
-
-  ================================================*/
   
   var lastTime = 0;
   var vendors = [ 'webkit', 'moz' ];

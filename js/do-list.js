@@ -1,11 +1,8 @@
 
 input = document.querySelector('.main .field .in');
 submit = document.querySelector('.main .field .add');
-checker = document.querySelectorAll(".data div input");
-
 data = document.querySelector(".data");
 //z: to button [delete] c: to creat button [delete] d:to creat 
-// var c = "";var d = ""; 
 var z = []; var w = [];
 
 //load from localStrorage
@@ -22,6 +19,7 @@ for (var i = 0; i <= localStorage.length - 1; i++) {
     }
     if (localStorage.key(i)[localStorage.key(i).length - 1] == 'T') {
         q.setAttribute("data-che", "T");
+        d.style.background = '#0e874961'
     }
     data.appendChild(d);
     c.innerHTML = 'delete';
@@ -47,14 +45,11 @@ submit.addEventListener("click", (e) => {
         d.appendChild(q);
         d.appendChild(c);
         z.push(c);
-        //one edite
         localStorage.setItem(input.value + 'F', input.value);
-        // localStorage.setItem(input.value, input.value);
         input.value = '';
 
-        checker = document.querySelectorAll(".data div input");
     } else {
-        // is empty
+        // field  is empty
         document.querySelector('.emp').style.opacity = 1;
         setTimeout(() => {
             document.querySelector('.emp').style.opacity = 0;
@@ -65,8 +60,6 @@ submit.addEventListener("click", (e) => {
 
 //delete from localStorage and now
 data.addEventListener('click', () => {
-
-
     z.forEach((i, j) => {
         i.addEventListener("click", () => {
             //delete from localStorage
@@ -90,46 +83,37 @@ data.addEventListener('click', () => {
 })
 
 
-//if finish task
-
 var checker = document.querySelectorAll(".data div input");
 
-document.querySelectorAll(".data")[0].addEventListener('change',()=>{
+
+//click che
+document.querySelectorAll(".data")[0].addEventListener('change', () => {
     checker = document.querySelectorAll(".data div input");
+    checkBooxClick();
+
+})
+
+checkBooxClick();
+function checkBooxClick() {
     checker.forEach(inp2 => {
 
         if (inp2.dataset.che === 'T') { inp2.checked = true }
         if (inp2.dataset.che === 'F') { inp2.checked = false }
-    
+
         inp2.addEventListener('click', () => {
             checker = document.querySelectorAll(".data div input");
             console.log(inp2.dataset.che)
-    
+
             if (inp2.checked === false) { inp2.dataset.che = 'F' }
             if (inp2.checked === true) { inp2.dataset.che = 'T' }
-    
             TransTF(inp2);
-    
+            
+            if (inp2.checked === false) {inp2.parentElement.style.background = '#0f2b60bd'}
+            if (inp2.checked === true) { inp2.parentElement.style.background = '#0e874961'}
+
         })
     })
-    
-})
-checker.forEach(inp2 => {
-
-    if (inp2.dataset.che === 'T') { inp2.checked = true }
-    if (inp2.dataset.che === 'F') { inp2.checked = false }
-
-    inp2.addEventListener('click', () => {
-        checker = document.querySelectorAll(".data div input");
-        console.log(inp2.dataset.che)
-
-        if (inp2.checked === false) { inp2.dataset.che = 'F' }
-        if (inp2.checked === true) { inp2.dataset.che = 'T' }
-
-        TransTF(inp2);
-
-    })
-})
+}
 
 
 function TransTF(inputcheck) {
@@ -137,10 +121,10 @@ function TransTF(inputcheck) {
     var q = inputcheck.parentElement.childNodes[0].textContent;     // value without F or T 
     // var w = inputcheck.parentElement.childNodes[1].dataset.che;     //T or F
     var w;
-    if(inputcheck.parentElement.childNodes[1].dataset.che === "F"){
+    if (inputcheck.parentElement.childNodes[1].dataset.che === "F") {
         w = "T"
     }
-    if(inputcheck.parentElement.childNodes[1].dataset.che === "T"){
+    if (inputcheck.parentElement.childNodes[1].dataset.che === "T") {
         w = 'F'
     }
     var qw = q + w; //value with F or T

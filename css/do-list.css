@@ -71,6 +71,7 @@ body{
     align-items: center;
     margin: 80px 30px;
     border: 1px solid white;
+    box-shadow: 0 0 10px 0px black;
 }
 .data div{
     position: relative;
@@ -87,6 +88,7 @@ body{
     border: 1px solid white;
     background: var(--bodyColor);
     transition: 0.5s;
+    box-shadow: 1px 7px 20px #0202026b;
     
 }
 
