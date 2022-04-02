@@ -76,17 +76,17 @@ data.addEventListener('click', () => {
             i.parentElement.style.opacity = '0'
             setTimeout(() => {
                 i.parentElement.style.display = 'none'
-                checker = document.querySelectorAll(".data div input");
+                // checker = document.querySelectorAll(".data div input");
             }, 400)
         })
     })
 })
 
 
-var checker = document.querySelectorAll(".data div input");
 
 
 //click che
+var checker = document.querySelectorAll(".data div input");
 document.querySelectorAll(".data")[0].addEventListener('change', () => {
     checker = document.querySelectorAll(".data div input");
     checkBooxClick();
@@ -117,9 +117,8 @@ function checkBooxClick() {
 
 
 function TransTF(inputcheck) {
-
     var q = inputcheck.parentElement.childNodes[0].textContent;     // value without F or T 
-    // var w = inputcheck.parentElement.childNodes[1].dataset.che;     //T or F
+
     var w;
     if (inputcheck.parentElement.childNodes[1].dataset.che === "F") {
         w = "T"
@@ -128,15 +127,12 @@ function TransTF(inputcheck) {
         w = 'F'
     }
     var qw = q + w; //value with F or T
-
     if (w === 'T') {
         localStorage.removeItem(qw)
         localStorage.setItem(q + "F", q)
     }
-
     if (w === 'F') {
         localStorage.removeItem(qw)
         localStorage.setItem(q + "T", q)
     }
-
 }
