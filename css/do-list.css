@@ -40,7 +40,7 @@ body{
 
 }
 .main [type="submit" i]:hover{
-    background-color: #8fe08f;border: none;transition: 0.2s;
+    background-color: #0e874961;transition: 0.2s;
 }
 .emp{
     position: absolute;
@@ -102,7 +102,7 @@ body{
     border: 1px solid white;
 }
 .data div button:hover{
-    background-color: #f48888;
+    background-color: #f4888875;
 }
 
 .data div input[type="checkbox" i]{
