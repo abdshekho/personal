@@ -55,37 +55,20 @@ submit.addEventListener("click", (e) => {
             document.querySelector('.emp').style.opacity = 0;
         }, 1300)
     }
+    deletItem();
 })
 
 
 //delete from localStorage and now
+deletItem();
 data.addEventListener('click', () => {
-    z.forEach((i, j) => {
-        i.addEventListener("click", () => {
-            //delete from localStorage
-            //two edite
-            if (i.parentElement.childNodes[1].dataset.che == 'F') {
-                localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
-            }
-
-            if (i.parentElement.childNodes[1].dataset.che == 'T') {
-                localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
-            }
-            // checker = ""
-            //delete from page "RT"
-            i.parentElement.style.opacity = '0'
-            setTimeout(() => {
-                i.parentElement.style.display = 'none'
-                // checker = document.querySelectorAll(".data div input");
-            }, 400)
-        })
-    })
+    deletItem();
 })
 
 
 
 
-//click che
+//click che or doIt task
 var checker = document.querySelectorAll(".data div input");
 document.querySelectorAll(".data")[0].addEventListener('change', () => {
     checker = document.querySelectorAll(".data div input");
@@ -93,23 +76,26 @@ document.querySelectorAll(".data")[0].addEventListener('change', () => {
 
 })
 
+
+
+
+
+
+
 checkBooxClick();
 function checkBooxClick() {
     checker.forEach(inp2 => {
 
         if (inp2.dataset.che === 'T') { inp2.checked = true }
         if (inp2.dataset.che === 'F') { inp2.checked = false }
-
         inp2.addEventListener('click', () => {
             checker = document.querySelectorAll(".data div input");
-            console.log(inp2.dataset.che)
 
             if (inp2.checked === false) { inp2.dataset.che = 'F' }
             if (inp2.checked === true) { inp2.dataset.che = 'T' }
             TransTF(inp2);
-            
-            if (inp2.checked === false) {inp2.parentElement.style.background = '#0f2b60bd'}
-            if (inp2.checked === true) { inp2.parentElement.style.background = '#0e874961'}
+            if (inp2.checked === false) { inp2.parentElement.style.background = '#0f2b60bd' }
+            if (inp2.checked === true) { inp2.parentElement.style.background = '#0e874961' }
 
         })
     })
@@ -136,3 +122,49 @@ function TransTF(inputcheck) {
         localStorage.setItem(q + "T", q)
     }
 }
+
+function deletItem() {
+    z.forEach((i, j) => {
+        i.addEventListener("click", () => {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#f48888',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Swal.fire(
+                    //     'Deleted!',
+                    //     'Your task has been deleted.',
+                    //     'success'
+                    // )
+                            //delete from localStorage
+            if (i.parentElement.childNodes[1].dataset.che == 'F') {
+                localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
+            }
+            if (i.parentElement.childNodes[1].dataset.che == 'T') {
+                localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
+            }
+
+            //delete from page
+            i.parentElement.style.opacity = '0'
+            setTimeout(() => {
+                i.parentElement.style.display = 'none'
+            }, 400)
+
+                }
+            })
+            
+            
+            
+    
+
+        })
+    })
+}
+
+
