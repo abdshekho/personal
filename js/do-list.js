@@ -2,6 +2,8 @@
 input = document.querySelector('.main .field .in');
 submit = document.querySelector('.main .field .add');
 data = document.querySelector(".data");
+var deleteAll = document.querySelectorAll(".deleteAll")[0];
+
 //z: to button [delete] c: to creat button [delete] d:to creat 
 var z = []; var w = [];
 
@@ -47,22 +49,36 @@ submit.addEventListener("click", (e) => {
         z.push(c);
         localStorage.setItem(input.value + 'F', input.value);
         input.value = '';
+        hitToSave();
+
+        checker = document.querySelectorAll(".data div input");
+        //delete all hide
+        if (data.childElementCount === 0) {
+            deleteAll.style.display = 'none'
+
+        } else {
+            deleteAll.style.display = 'flex'
+        }
 
     } else {
         // field  is empty
+
         document.querySelector('.emp').style.opacity = 1;
         setTimeout(() => {
             document.querySelector('.emp').style.opacity = 0;
         }, 1300)
-    }
-    deletItem();
-})
+        hitToEmpty();
 
+    }
+
+    deleteItem();
+})
+//'Your task has been saved'
 
 //delete from localStorage and now
-deletItem();
+deleteItem();
 data.addEventListener('click', () => {
-    deletItem();
+    deleteItem();
 })
 
 
@@ -71,7 +87,7 @@ data.addEventListener('click', () => {
 //click che or doIt task
 var checker = document.querySelectorAll(".data div input");
 document.querySelectorAll(".data")[0].addEventListener('change', () => {
-    checker = document.querySelectorAll(".data div input");
+
     checkBooxClick();
 
 })
@@ -123,7 +139,7 @@ function TransTF(inputcheck) {
     }
 }
 
-function deletItem() {
+function deleteItem() {
     z.forEach((i, j) => {
         i.addEventListener("click", () => {
 
@@ -142,29 +158,133 @@ function deletItem() {
                     //     'Your task has been deleted.',
                     //     'success'
                     // )
-                            //delete from localStorage
-            if (i.parentElement.childNodes[1].dataset.che == 'F') {
-                localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
-            }
-            if (i.parentElement.childNodes[1].dataset.che == 'T') {
-                localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
-            }
+                    //delete from localStorage
+                    if (i.parentElement.childNodes[1].dataset.che == 'F') {
+                        localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
+                    }
+                    if (i.parentElement.childNodes[1].dataset.che == 'T') {
+                        localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
+                    }
+                    
 
-            //delete from page
-            i.parentElement.style.opacity = '0'
-            setTimeout(() => {
-                i.parentElement.style.display = 'none'
-            }, 400)
+                    //delete from page
+                    i.parentElement.style.opacity = '0'
+                    setTimeout(() => {
+                        i.parentElement.style.display = 'none'
+                    }, 400)
+
+                    
 
                 }
             })
-            
-            
-            
-    
+
+
+
+
 
         })
     })
 }
 
 
+
+//hit to save
+function hitToSave() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            // toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: 'Your task has been saved'
+    })
+}
+
+// hit to Empyt
+function hitToEmpty(){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-start',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+            // toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'warning',
+        title: 'is empty'
+    })
+
+}
+
+
+
+//Start deleteAll
+if (data.childElementCount === 0) {
+    deleteAll.style.display = 'none'
+} else {
+    deleteAll.style.display = 'flex'
+}
+function DeleteAll() {
+    
+    for (var i = 0; i <= localStorage.length - 1; i++) {
+        if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option' || localStorage.key(i) === 'background' || localStorage.key(i) === 'checkAnimation' || localStorage.key(i) === 'checkRandom') {
+            continue;
+        }
+        else {
+
+            localStorage.removeItem(localStorage.key(i));
+            console.log(localStorage.key(i))
+
+            z.forEach(i => {
+                if (i.parentElement.childNodes[1].dataset.che == 'F') {
+                    localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
+                }
+                if (i.parentElement.childNodes[1].dataset.che == 'T') {
+                    localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
+                }
+                i.parentElement.style.opacity = '0'
+                setTimeout(() => {
+                    i.parentElement.style.display = 'none'
+                }, 400)
+                setTimeout(() => {
+                    deleteAll.style.display = 'none'
+                }, 800)
+            })
+
+        }
+    }
+
+}
+
+deleteAll.onclick = () => {
+    Swal.fire({
+        title: 'Are you sure to Delet All?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#f48888',
+        confirmButtonText: 'Yes, delete All !'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            
+            DeleteAll();
+
+        }
+    })
+
+}
+//End deleteAll
