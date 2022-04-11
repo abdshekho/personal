@@ -4,8 +4,10 @@ submit = document.querySelector('.main .field .add');
 data = document.querySelector(".data");
 var deleteAll = document.querySelectorAll(".deleteAll")[0];
 
-//z: to button [delete] c: to creat button [delete] d:to creat 
+
+//z: to button [delete]     c: to creat button [delete]  
 var z = []; var w = [];
+
 
 //load from localStrorage
 for (var i = 0; i <= localStorage.length - 1; i++) {
@@ -73,15 +75,13 @@ submit.addEventListener("click", (e) => {
 
     deleteItem();
 })
-//'Your task has been saved'
+
 
 //delete from localStorage and now
 deleteItem();
 data.addEventListener('click', () => {
     deleteItem();
 })
-
-
 
 
 //click che or doIt task
@@ -97,8 +97,8 @@ document.querySelectorAll(".data")[0].addEventListener('change', () => {
 
 
 
-
 checkBooxClick();
+//                                                  function
 function checkBooxClick() {
     checker.forEach(inp2 => {
 
@@ -116,7 +116,6 @@ function checkBooxClick() {
         })
     })
 }
-
 
 function TransTF(inputcheck) {
     var q = inputcheck.parentElement.childNodes[0].textContent;     // value without F or T 
@@ -165,7 +164,7 @@ function deleteItem() {
                     if (i.parentElement.childNodes[1].dataset.che == 'T') {
                         localStorage.removeItem(i.parentElement.firstChild.textContent + "T")
                     }
-                    
+
 
                     //delete from page
                     i.parentElement.style.opacity = '0'
@@ -173,7 +172,7 @@ function deleteItem() {
                         i.parentElement.style.display = 'none'
                     }, 400)
 
-                    
+
 
                 }
             })
@@ -185,8 +184,6 @@ function deleteItem() {
         })
     })
 }
-
-
 
 //hit to save
 function hitToSave() {
@@ -209,7 +206,7 @@ function hitToSave() {
 }
 
 // hit to Empyt
-function hitToEmpty(){
+function hitToEmpty() {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-start',
@@ -229,16 +226,17 @@ function hitToEmpty(){
 
 }
 
-
-
-//Start deleteAll
-if (data.childElementCount === 0) {
-    deleteAll.style.display = 'none'
-} else {
-    deleteAll.style.display = 'flex'
+//when deleteall itemes will delete button
+function deleteButton() {
+    if (data.childElementCount === 0) {
+        deleteAll.style.display = 'none'
+    } else {
+        deleteAll.style.display = 'flex'
+    };
 }
+
 function DeleteAll() {
-    
+
     for (var i = 0; i <= localStorage.length - 1; i++) {
         if (localStorage.key(i) === 'randid' || localStorage.key(i) === 'scoreOld' || localStorage.key(i) === 'maxScore' || localStorage.key(i) === 'li' || localStorage.key(i) === 'color-option' || localStorage.key(i) === 'background' || localStorage.key(i) === 'checkAnimation' || localStorage.key(i) === 'checkRandom') {
             continue;
@@ -246,8 +244,6 @@ function DeleteAll() {
         else {
 
             localStorage.removeItem(localStorage.key(i));
-            console.log(localStorage.key(i))
-
             z.forEach(i => {
                 if (i.parentElement.childNodes[1].dataset.che == 'F') {
                     localStorage.removeItem(i.parentElement.firstChild.textContent + "F")
@@ -269,22 +265,46 @@ function DeleteAll() {
 
 }
 
+//Start deleteAll
 deleteAll.onclick = () => {
-    Swal.fire({
-        title: 'Are you sure to Delet All?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#f48888',
-        confirmButtonText: 'Yes, delete All !'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            
-            DeleteAll();
+    
 
+const { value: fruit } =  Swal.fire({
+    title: 'Select field validation',
+    input: 'select',
+    inputOptions: {
+        'Delete': {
+
+            DeleteAll: 'DeleteAll'
         }
-    })
+    },
+    inputPlaceholder: 'Select option',
+    showCancelButton: true,
+    inputValidator: (value) => {
+        return new Promise((resolve) => {
+            if (value === 'DeleteAll') {
+                DeleteAll()
+                resolve()
+            } else {
+                resolve('You need to select DeletAll if you want Delete all items')
+            }
+        })
+    }
+})
+
 
 }
 //End deleteAll
+
+
+// Start delete Button of deleteAll
+// if (data.childElementCount === 0) {
+//     deleteAll.style.display = 'none'
+// } else {
+//     deleteAll.style.display = 'flex'
+// };
+
+deleteButton();
+
+
+
