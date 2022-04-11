@@ -37,19 +37,19 @@ for (var i = 0; i <= localStorage.length - 1; i++) {
 //Add
 submit.addEventListener("click", (e) => {
     e.preventDefault();
-    if (input.value != '') {
+    if (input.value.trim() != '') {
         d = document.createElement("div");
         c = document.createElement("button");
         q = document.createElement("input");
         q.setAttribute("type", "checkbox");
         q.setAttribute("data-che", "F");
         c.innerHTML = 'delete';
-        d.innerHTML = input.value;
+        d.innerHTML = input.value.trim();
         data.appendChild(d);
         d.appendChild(q);
         d.appendChild(c);
         z.push(c);
-        localStorage.setItem(input.value + 'F', input.value);
+        localStorage.setItem(input.value.trim() + 'F', input.value.trim());
         input.value = '';
         hitToSave();
 
@@ -267,30 +267,30 @@ function DeleteAll() {
 
 //Start deleteAll
 deleteAll.onclick = () => {
-    
 
-const { value: fruit } =  Swal.fire({
-    title: 'Select field validation',
-    input: 'select',
-    inputOptions: {
-        'Delete': {
 
-            DeleteAll: 'DeleteAll'
-        }
-    },
-    inputPlaceholder: 'Select option',
-    showCancelButton: true,
-    inputValidator: (value) => {
-        return new Promise((resolve) => {
-            if (value === 'DeleteAll') {
-                DeleteAll()
-                resolve()
-            } else {
-                resolve('You need to select DeletAll if you want Delete all items')
+    const { value: fruit } = Swal.fire({
+        title: 'Select field validation',
+        input: 'select',
+        inputOptions: {
+            'Delete': {
+
+                DeleteAll: 'DeleteAll'
             }
-        })
-    }
-})
+        },
+        inputPlaceholder: 'Select option',
+        showCancelButton: true,
+        inputValidator: (value) => {
+            return new Promise((resolve) => {
+                if (value === 'DeleteAll') {
+                    DeleteAll()
+                    resolve()
+                } else {
+                    resolve('You need to select DeletAll if you want Delete all items')
+                }
+            })
+        }
+    })
 
 
 }
@@ -303,7 +303,6 @@ const { value: fruit } =  Swal.fire({
 // } else {
 //     deleteAll.style.display = 'flex'
 // };
-
 deleteButton();
 
 
