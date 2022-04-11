@@ -54,13 +54,8 @@ submit.addEventListener("click", (e) => {
         hitToSave();
 
         checker = document.querySelectorAll(".data div input");
-        //delete all hide
-        if (data.childElementCount === 0) {
-            deleteAll.style.display = 'none'
-
-        } else {
-            deleteAll.style.display = 'flex'
-        }
+        //delete all button hide
+        deleteButton();
 
     } else {
         // field  is empty
@@ -230,8 +225,10 @@ function hitToEmpty() {
 function deleteButton() {
     if (data.childElementCount === 0) {
         deleteAll.style.display = 'none'
+        data.style.display = 'none'
     } else {
         deleteAll.style.display = 'flex'
+        data.style.display = 'flex'
     };
 }
 
@@ -256,7 +253,10 @@ function DeleteAll() {
                     i.parentElement.style.display = 'none'
                 }, 400)
                 setTimeout(() => {
-                    deleteAll.style.display = 'none'
+                    deleteAll.style.display = 'none';
+                    data.style.display = 'none'
+
+
                 }, 800)
             })
 
