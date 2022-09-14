@@ -296,13 +296,6 @@ deleteAll.onclick = () => {
 }
 //End deleteAll
 
-
-// Start delete Button of deleteAll
-// if (data.childElementCount === 0) {
-//     deleteAll.style.display = 'none'
-// } else {
-//     deleteAll.style.display = 'flex'
-// };
 deleteButton();
 
 
